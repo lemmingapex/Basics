@@ -11,7 +11,7 @@ public class PrimeGenerator {
 	 * @param pN
 	 */
 	public static Set<Long> generatePrimesUpToN(Long pN) {
-		// initial set will contain about 1/3 the number of primes
+		// initial set will contain about 1/3 the of the natural numbers
 		LinkedHashSet<Long> primes = new LinkedHashSet<Long>((int) (pN/3) + 1);
 
 		if (pN == null || pN < 1) {
