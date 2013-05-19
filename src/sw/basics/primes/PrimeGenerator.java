@@ -1,0 +1,61 @@
+package sw.basics.primes;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+public class PrimeGenerator {
+
+	/**
+	 * Uses Sieve of Eratosthenes more or less
+	 * 
+	 * @param pN
+	 */
+	public static Set<Long> generatePrimesUpToN(Long pN) {
+		// initial set will contain about 1/3 the number of primes
+		LinkedHashSet<Long> primes = new LinkedHashSet<Long>((int) (pN/3) + 1);
+
+		if (pN == null || pN < 1) {
+			return primes;
+		}
+
+		if (pN >= 2) {
+			primes.add(2l);
+			if (pN >= 3) {
+				primes.add(3l);
+
+				// don't initialize list with multiples of 2 or 3. Will
+				// reduce initial set set by 2/3, saving memory
+				long i = 5;
+				for (; i <= pN; i = i + 6) {
+					primes.add(i);
+					primes.add(i + 2);
+				}
+				// make sure that the last element added, (i-4), was within
+				// bounds
+				if (i > 5 && primes.contains(i - 4) && i - 4 > pN) {
+					primes.remove(i - 4);
+				}
+
+			}
+		}
+		// index of odd numbers composites to save memory, 3,5,7,9
+		boolean[] isComposite = new boolean[(int) ((pN / 2) + 1)];
+
+		// start removing non-primes at 5, skip evens and index into the
+		// composite array correctly
+		for (long i = 3; i <= pN; i = i + 2l) {
+			int compositeIndex = (int) ((i - 1) / 2);
+			if (!isComposite[compositeIndex]) {
+				long tempIndex = i * i;
+				while (tempIndex <= pN) {
+					if (primes.contains(tempIndex)) {
+						primes.remove(tempIndex);
+					}
+					isComposite[(int) ((tempIndex - 1) / 2)] = true;
+					tempIndex += i * 2;
+				}
+			}
+		}
+		return primes;
+	}
+}
