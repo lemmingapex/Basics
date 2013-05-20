@@ -1,11 +1,24 @@
 package sw.basics.primes;
 
+import static org.junit.Assert.*;
+
+import java.util.List;
+
+import org.junit.Test;
+
 public class PrimeGeneratorTest {
-	public static void main(String args[]) {
-		long n = 104729l;
-		Long[] mySet = PrimeGenerator.generatePrimesUpToN(n).toArray(new Long[0]);
-		for (int i = 0; i < mySet.length; i++) {
-			System.out.println(mySet[i]);
-		}	
+
+	@Test
+	public void testGeneration() {
+		// number of primes to generate
+		long n = 10000l;
+
+		List<Long> Primes = PrimeGenerator.generateNPrimes(n);
+		assertEquals(Primes.size(), n);
+		assertEquals(Primes.get(10000 - 1).longValue(), 104729l);
+
+		Primes = PrimeGenerator.generatePrimesUpToN(Primes.get(10000 - 1));
+		assertEquals(Primes.size(), n);
+		assertEquals(Primes.get(10000 - 1).longValue(), 104729l);
 	}
 }

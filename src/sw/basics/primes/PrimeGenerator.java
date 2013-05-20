@@ -1,6 +1,8 @@
 package sw.basics.primes;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 public class PrimeGenerator {
@@ -10,12 +12,12 @@ public class PrimeGenerator {
 	 * 
 	 * @param pN
 	 */
-	public static Set<Long> generatePrimesUpToN(Long pN) {
+	public static List<Long> generatePrimesUpToN(Long pN) {
 		// initial set will contain about 1/3 the of the natural numbers
 		LinkedHashSet<Long> primes = new LinkedHashSet<Long>((int) (pN/3) + 1);
 
 		if (pN == null || pN < 1) {
-			return primes;
+			return new ArrayList<Long>(primes);
 		}
 
 		if (pN >= 2) {
@@ -56,6 +58,20 @@ public class PrimeGenerator {
 				}
 			}
 		}
-		return primes;
+		return new ArrayList<Long>(primes);
+	}
+	
+	/**
+	 * Uses Sieve of Eratosthenes more or less
+	 * 
+	 * @param pN
+	 */
+	public static List<Long> generateNPrimes(Long pN) {
+		// refer to PIERRE DUSART paper The kth prime
+		Double pNDouble = pN.doubleValue();
+		Double lnpN = Math.log(pNDouble);
+		Double primeAtNUpperBoundDouble = (pNDouble*lnpN) + pNDouble*((Math.log(lnpN)) - 0.9385);
+		Long primeAtNUpperBoundLong = primeAtNUpperBoundDouble.longValue();
+		return generatePrimesUpToN(primeAtNUpperBoundLong).subList(0, pN.intValue());
 	}
 }

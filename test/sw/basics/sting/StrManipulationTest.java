@@ -1,8 +1,11 @@
 package sw.basics.sting;
 
+import org.junit.Test;
+
 public class StrManipulationTest {
 
-	public static void main(String args[]) {
+	@Test
+	public void test() {
 		StrManipulation.combinations("", "12345");
 	}
 }

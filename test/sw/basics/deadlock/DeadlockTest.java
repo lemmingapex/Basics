@@ -5,8 +5,12 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import org.junit.Test;
+
 public class DeadlockTest {
-	public static void main(String args[]) {
+
+	@Test
+	public void test() {
 		BlockingQueue<Runnable> q = new LinkedBlockingQueue<Runnable>();
 		for(int i = 0; i < 100; i++){
             q.add(new Deadlock(i));

@@ -1,7 +1,11 @@
 package sw.basics.hashmap;
 
+import org.junit.Test;
+
 public class SimpleHashMapTest {
-	public static void main(String args[]) {
+
+	@Test
+	public void test() {
 		SimpleHashMap<String, String> myHashMap = new SimpleHashMap<String, String>();
 		myHashMap.put("Test", "testvalue");
 		myHashMap.put("Test", "testvalue1");
