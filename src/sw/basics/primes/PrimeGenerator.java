@@ -9,7 +9,7 @@ public class PrimeGenerator {
 
 	/**
 	 * Uses Sieve of Eratosthenes more or less
-	 * 
+	 *
 	 * @param pN
 	 */
 	public static List<Long> generatePrimesUpToN(Long pN) {
@@ -60,17 +60,20 @@ public class PrimeGenerator {
 		}
 		return new ArrayList<Long>(primes);
 	}
-	
+
 	/**
 	 * Uses Sieve of Eratosthenes more or less
-	 * 
+	 *
 	 * @param pN
 	 */
 	public static List<Long> generateNPrimes(Long pN) {
-		// refer to PIERRE DUSART paper The kth prime
-		Double pNDouble = pN.doubleValue();
+		// find upper bound using Pn < n*(ln(n) + ln(ln(n)))
+		// J. BARKLEY ROSSER AND LOWELL SCHOENFELD
+		// see http://en.wikipedia.org/wiki/Prime_number_theorem#Approximations_for_the_nth_prime_number
+		Long pNlt = Math.max(6l, pN);
+		Double pNDouble = pNlt.doubleValue();
 		Double lnpN = Math.log(pNDouble);
-		Double primeAtNUpperBoundDouble = (pNDouble*lnpN) + pNDouble*((Math.log(lnpN)) - 0.9385);
+		Double primeAtNUpperBoundDouble = pNDouble * (lnpN + Math.log(lnpN));
 		Long primeAtNUpperBoundLong = primeAtNUpperBoundDouble.longValue();
 		return generatePrimesUpToN(primeAtNUpperBoundLong).subList(0, pN.intValue());
 	}
