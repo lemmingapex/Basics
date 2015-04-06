@@ -1,31 +1,31 @@
 package sw.basics.math;
 
 public final class DumbMath {
-	
+
 	/**
-	 * 
+	 *
 	 * Calculates a^b using only sums and products.
-	 * 
+	 *
 	 * Consider the following:
-	 * 
+	 *
 	 * x = a^b
-	 * 
+	 *
 	 * x = e^ln(a^b)
-	 * 
+	 *
 	 * x = e^(b*ln(a))
-	 * 
-	 * 
+	 *
+	 *
 	 * The exponential function and natural log can both be expressed as taylor
 	 * series that only contains sums and products (or integer Exponentiation, which is a cumulative product).
-	 * 
+	 *
 	 * e^x =  sum {n=0 to infinity} (x^n)/n!
-	 * 
+	 *
 	 * Precision is determined by a few factors. First, to what bound are the
 	 * taylor expansions expressed to? 30 maybe? Experimental testing will help
 	 * determine this value. Second, the algorithm will be subject to the
 	 * numerical limits of doubles. I expect that a very small a in combination
 	 * with a large b will give poor results.
-	 * 
+	 *
 	 * @param a, base
 	 * @param b, exponent
 	 * @return a^b
@@ -55,21 +55,21 @@ public final class DumbMath {
 
 		return pow;
 	}
-	
-	
+
+
 	/**
-	 * 
+	 *
 	 * ln(x) = sum {n=1 to infinity} (((-1)^(n+1))/n)*((x-1)^n) if |x-1|<=1
-	 * 
+	 *
 	 * ln(x) = sum {n=1 to infinity} 1/(n/(n-1))^n if |x|>1
-	 * 
+	 *
 	 * @param a
 	 * @return
 	 */
 	public static double ln(double a) {
 
 		double aminus1 = a - 1.0;
-		boolean gt1 = (Math.sqrt(aminus1 * aminus1) <= 1) ? false : true;
+		boolean gt1 = (sqrt(aminus1 * aminus1) <= 1) ? false : true;
 
 		final int iteration_count = 300;
 
@@ -118,9 +118,48 @@ public final class DumbMath {
 		return lnsum;
 	}
 
-	// TODO
-	public static double sqrt(double a) {
-		return -1.0;
-	}
+	/**
+	 * Babylonian method
+	 * 
+	 * @param a
+	 * @return
+	 * @throws IllegalArgumentException
+	 */
+	public static double sqrt(double a) throws IllegalArgumentException {
 
+		if(a == 0) {
+			return 0;
+		}
+		
+		if (a < 0) {
+			throw new IllegalArgumentException("Can not sqrt a negitive number!");
+		}
+
+		// see
+		// http://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Rough_estimation
+		double mantissa = a;
+		int tenToTheN = 1;
+
+		if (a > 100) {
+			while (mantissa / 100 > 1) {
+				mantissa /= 100;
+				tenToTheN = tenToTheN * 10;
+			}
+		}
+
+		double roughEstimation;
+		if (mantissa < 10) {
+			roughEstimation = 2 * tenToTheN;
+		} else {
+			roughEstimation = 6 * tenToTheN;
+		}
+
+		// see http://en.wikipedia.org/wiki/Methods_of_computing_square_roots
+		final int iteration_count = 40;
+		double x = roughEstimation;
+		for (int i = 1; i < iteration_count; i++) {
+			x = 0.5 * (x + (a / x));
+		}
+		return x;
+	}
 }

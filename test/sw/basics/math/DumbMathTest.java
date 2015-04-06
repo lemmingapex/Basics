@@ -6,6 +6,7 @@ public class DumbMathTest {
 
 	@Test
 	public void testln() {
+		System.out.println("testln");
 		System.out.println("java.lang: " + Math.log(0.0000003));
 		System.out.println("dumb.math: " + DumbMath.ln(0.0000003));
 
@@ -24,6 +25,7 @@ public class DumbMathTest {
 
 	@Test
 	public void testpow() {
+		System.out.println("testpow");
 		System.out.println("java.lang: " + Math.pow(2.0, 3.0));
 		System.out.println("dumb.math: " + DumbMath.pow(2.0, 3.0));
 
@@ -46,4 +48,29 @@ public class DumbMathTest {
 		System.out.println("dumb.math: " + DumbMath.pow(0.02, 5.1));
 	}
 
+	
+	@Test
+	public void testsqrt() {
+		System.out.println("testsqrt");
+		System.out.println("java.lang: " + Math.sqrt(9.0));
+		System.out.println("dumb.math: " + DumbMath.sqrt(9.0));
+		
+		System.out.println("java.lang: " + Math.sqrt(9000.0));
+		System.out.println("dumb.math: " + DumbMath.sqrt(9000.0));
+		
+		System.out.println("java.lang: " + Math.sqrt(0.1));
+		System.out.println("dumb.math: " + DumbMath.sqrt(0.1));
+		
+		System.out.println("java.lang: " + Math.sqrt(125348));
+		System.out.println("dumb.math: " + DumbMath.sqrt(125348));
+		
+		System.out.println("java.lang: " + Math.sqrt(0.00001));
+		System.out.println("dumb.math: " + DumbMath.sqrt(0.00001));
+		
+		System.out.println("java.lang: " + Math.sqrt(Double.MAX_VALUE));
+		System.out.println("dumb.math: " + DumbMath.sqrt(Double.MAX_VALUE));
+		
+		System.out.println("java.lang: " + Math.sqrt(Double.MIN_VALUE));
+		System.out.println("dumb.math: " + DumbMath.sqrt(Double.MIN_VALUE));
+	}
 }
