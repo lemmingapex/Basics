@@ -31,20 +31,20 @@ public final class DumbMath {
 	 * @return a^b
 	 */
 	public static double pow(double a, double b) {
-		double pow = 1.0;
+
+		if ((b - Math.floor(b)) == 0) {
+			return intpow(a, (int)b);
+		}
 
 		final int iteration_count = 30;
 
-		if ((b - Math.floor(b)) == 0) {
-			pow = a;
-			for (int i = 1; i < b; i++) {
-				pow *= a;
-			}
-			return pow;
+		double temp_pow = b * ln(a);
+		boolean negate = (temp_pow < 0);
+		if(negate) {
+			temp_pow *= -1.0;
 		}
 
-		double temp_pow = b * ln(a);
-
+		double pow = 1.0;
 		double denominator = 1.0;
 		double numerator = temp_pow;
 		for (int i = 1; i < iteration_count; i++) {
@@ -53,9 +53,42 @@ public final class DumbMath {
 			numerator *= temp_pow;
 		}
 
-		return pow;
+		if(negate) {
+			return 1.0/pow;
+		} else {
+			return pow;
+		}
 	}
 
+	/**
+	 * Return integer power of a^b in O(log(b)) using recursion. a^b =
+	 * (a^floor(b/2))*(a^floor(b/2))*(a^b%2)
+	 *
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	private static double intpow(double a, int b) {
+		if (b < 0) {
+			return 1.0 / intpowRecurse(a, -b);
+		} else {
+			return intpowRecurse(a, b);
+		}
+	}
+
+	public static double intpowRecurse(double a, int b) {
+		if (b == 0) {
+			return 1;
+		}
+
+		double v = intpowRecurse(a, b / 2);
+
+		if (b % 2 == 0) {
+			return v * v;
+		} else {
+			return v * v * a;
+		}
+	}
 
 	/**
 	 *
@@ -120,7 +153,7 @@ public final class DumbMath {
 
 	/**
 	 * Babylonian method
-	 * 
+	 *
 	 * @param a
 	 * @return
 	 * @throws IllegalArgumentException
@@ -130,7 +163,7 @@ public final class DumbMath {
 		if(a == 0) {
 			return 0;
 		}
-		
+
 		if (a < 0) {
 			throw new IllegalArgumentException("Can not sqrt a negitive number!");
 		}

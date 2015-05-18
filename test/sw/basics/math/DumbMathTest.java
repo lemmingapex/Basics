@@ -29,9 +29,24 @@ public class DumbMathTest {
 		System.out.println("java.lang: " + Math.pow(2.0, 3.0));
 		System.out.println("dumb.math: " + DumbMath.pow(2.0, 3.0));
 
+		System.out.println("java.lang: " + Math.pow(2.0, -3.0));
+		System.out.println("dumb.math: " + DumbMath.pow(2.0, -3.0));
+		
+		System.out.println("java.lang: " + Math.pow(3.0, 23.0));
+		System.out.println("dumb.math: " + DumbMath.pow(3.0, 23.0));
+
+		System.out.println("java.lang: " + Math.pow(3.0, -23.0));
+		System.out.println("dumb.math: " + DumbMath.pow(3.0, -23.0));
+		
 		System.out.println("java.lang: " + Math.pow(2.0, 3.1));
 		System.out.println("dumb.math: " + DumbMath.pow(2.0, 3.1));
 
+		System.out.println("java.lang: " + Math.pow(0.25, -0.25));
+		System.out.println("dumb.math: " + DumbMath.pow(0.25, -0.25));
+
+		System.out.println("java.lang: " + Math.pow(12.2, -8.16));
+		System.out.println("dumb.math: " + DumbMath.pow(12.2, -8.16));
+		
 		System.out.println("java.lang: " + Math.pow(7.0, 4.2));
 		System.out.println("dumb.math: " + DumbMath.pow(7.0, 4.2));
 
