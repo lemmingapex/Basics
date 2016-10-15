@@ -45,7 +45,8 @@ public class PrimeGenerator {
 
 		// start removing non-primes at 5, skip evens and index into the
 		// composite array correctly
-		for (long i = 3; i <= pN; i = i + 2l) {
+		long upperBound = (long)Math.sqrt(pN);
+		for (long i = 3; i <= upperBound; i = i + 2l) {
 			int compositeIndex = (int) ((i - 1) / 2);
 			if (!isComposite[compositeIndex]) {
 				long tempIndex = i * i;

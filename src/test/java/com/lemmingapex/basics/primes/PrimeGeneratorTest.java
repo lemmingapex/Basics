@@ -11,14 +11,23 @@ public class PrimeGeneratorTest {
 	@Test
 	public void testGeneration() {
 		// number of primes to generate
-		long n = 10000l;
+		long n = 10000L;
 
-		List<Long> Primes = PrimeGenerator.generateNPrimes(n);
-		assertEquals(Primes.size(), n);
-		assertEquals(Primes.get(10000 - 1).longValue(), 104729l);
+		List<Long> primes = PrimeGenerator.generateNPrimes(n);
+		assertEquals(primes.size(), n);
+		assertEquals(primes.get(((int)n) - 1).longValue(), 104729L);
 
-		Primes = PrimeGenerator.generatePrimesUpToN(Primes.get(10000 - 1));
-		assertEquals(Primes.size(), n);
-		assertEquals(Primes.get(10000 - 1).longValue(), 104729l);
+		primes = PrimeGenerator.generatePrimesUpToN(primes.get(((int)n) - 1));
+		assertEquals(primes.size(), n);
+		assertEquals(primes.get(((int)n) - 1).longValue(), 104729L);
+
+		n = 4000000l;
+		primes = PrimeGenerator.generateNPrimes(n);
+		assertEquals(primes.size(), n);
+		assertEquals(primes.get(((int)n) - 1).longValue(), 67867967L);
+
+		primes = PrimeGenerator.generatePrimesUpToN(primes.get(((int)n) - 1));
+		assertEquals(primes.size(), n);
+		assertEquals(primes.get(((int)n) - 1).longValue(), 67867967L);
 	}
 }
