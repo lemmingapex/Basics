@@ -2,6 +2,8 @@ package com.lemmingapex.basics.math;
 
 public final class DumbMath {
 
+	static final double PI = 3.141592653589793;
+
 	/**
 	 *
 	 * Calculates a^b using only sums and products.
@@ -32,7 +34,7 @@ public final class DumbMath {
 	 */
 	public static double pow(double a, double b) {
 
-		if ((b - Math.floor(b)) == 0) {
+		if ((b % 1) == 0) {
 			return intpow(a, (int)b);
 		}
 
@@ -223,5 +225,69 @@ public final class DumbMath {
 			x = x_n;
 		}
 		return x;
+	}
+
+	/**
+	 * Uses the taylor series for cos(x)
+	 *
+	 * @param x in radians
+	 * @return
+	 */
+	public static double cos(double x) {
+		x = x%(2*DumbMath.PI);
+		final int max_iteration_count = 40;
+		double cos_x = 0;
+		double sign = -1.0;
+		double factorial = 1.0;
+		double d = 0.0;
+		for (int i = 0; i < max_iteration_count; i++) {
+			sign = -1.0*sign;
+			double twod = 2*d;
+			factorial = twod * (twod - 1.0) * factorial;
+			if(factorial <= 0.0) {
+				factorial = 1.0;
+			}
+			double x_n = sign * pow(x, twod) / factorial;
+			cos_x += x_n;
+			if(abs(x_n) < Double.MIN_VALUE) {
+				break;
+			}
+			d+=1.0;
+		}
+		return cos_x;
+	}
+
+	/**
+	 * Uses the taylor series for sin(x)
+	 *
+	 * @param x in radians
+	 * @return
+	 */
+	public static double sin(double x) {
+		x = x%(2*DumbMath.PI);
+		final int max_iteration_count = 40;
+		double sin_x = 0;
+		double sign = -1.0;
+		double factorial = 1.0;
+		double d = 0.0;
+		for (int i = 0; i < max_iteration_count; i++) {
+			sign = -1.0*sign;
+			double twod = 2*d;
+			factorial = twod * (twod + 1.0) * factorial;
+			if(factorial <= 0.0) {
+				factorial = 1.0;
+			}
+			double x_n = sign * pow(x, twod + 1.0) / factorial;
+			sin_x += x_n;
+			if(abs(x_n) < Double.MIN_VALUE) {
+				break;
+			}
+			d+=1.0;
+		}
+		return sin_x;
+	}
+
+	public static double tan(double x) {
+		return sin(x)/cos(x);
 	}
 }
