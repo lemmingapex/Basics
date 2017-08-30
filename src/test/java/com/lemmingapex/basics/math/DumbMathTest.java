@@ -64,6 +64,9 @@ public class DumbMathTest {
 
 		System.out.println("java.lang: " + Math.pow(0.02, 5.1));
 		System.out.println("dumb.math: " + DumbMath.pow(0.02, 5.1));
+
+		System.out.println("java.lang: " + Math.pow(0.02, 50.1));
+		System.out.println("dumb.math: " + DumbMath.pow(0.02, 50.1));
 	}
 
 
